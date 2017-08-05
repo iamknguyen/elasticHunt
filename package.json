@@ -2,27 +2,22 @@
   "name": "elastichunt",
   "version": "0.1.0",
   "private": true,
-  "devDependencies": {
-    "react-scripts": "1.0.10"
-  },
   "dependencies": {
     "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
+    "concurrently": "^3.5.0",
     "elasticsearch": "^13.2.0",
     "express": "^4.15.3",
     "forever": "^0.15.3",
     "morgan": "^1.8.2",
     "path": "^0.12.7",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "concurrently  \" nodemon server/server.js \"   \"cd client && npm start  \" ",
+    "server": "nodemon server/server.js",
+    "build": "cd client && npm run build"
   },
   "description": "Elastic Search in Node.js",
   "main": "server/server.js",
