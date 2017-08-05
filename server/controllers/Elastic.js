@@ -17,7 +17,7 @@ module.exports = {
 
   getBusinesses: function (req, res, next) {
     console.log(req.query);
-    let query = req.query.q ? req.query.q : '*';
+    let query = req.query.q && req.query.length ? req.query.q : '*';
     let size = req.query.size ? req.query.size : 10;
     let page = req.query.page ? req.query.page : 0;
     if(size < 0 || page < 0){
@@ -26,12 +26,20 @@ module.exports = {
     client.search({
       index: 'checkins',
       type: 'businesses',
-      q: `${query}&page=${page}&size=${size}`
+      q: `${query}`,
+      from: page,
+      size: size,
+      // sort: [
+      //   {"total_checkins" : "desc"}
+      // ]
     })
     .then(data => {
       res.json(data)
     })
-    //res.json(req.query);
+    .catch(err => {
+      res.json(err)
+    })
+    
   },
 
   getBusinessesWithCheckins: function (req, res, next) {
