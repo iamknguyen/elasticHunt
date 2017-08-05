@@ -1,4 +1,4 @@
-
+"use strict"
 const path = require('path');
 const client = require('./database.js');
 const elasticController = require('../controllers/Elastic.js');

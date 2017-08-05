@@ -1,3 +1,5 @@
+"use strict"
+
 const elasticsearch = require('elasticsearch');
 
 const Promise = require('bluebird')
@@ -60,7 +62,7 @@ const init = () => {
   .then(data => {
    // console.log(data);
     if(data && !data.error_message){
-       var hits = data.hits.hits;
+       let hits = data.hits.hits;
        console.log(hits.length)
         hits.forEach(business => {
           let tmp = {};
