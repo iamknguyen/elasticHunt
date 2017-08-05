@@ -17,6 +17,13 @@ const init = () => {
   console.log("Elastic Search is connected!");
   console.log("Creating index...");
   const store = [];
+  // myClient.indices.create({
+  //   index: 'checkins'
+  // })
+  // .then(data => {
+  //   console.log(data);
+  // })
+  ///*
   myClient.indices.exists({
     index: 'checkins'
   })
@@ -28,9 +35,9 @@ const init = () => {
           type: 'businesses',
           body: {
             "properties" : {
-                "name" : { "type" : "string"},
-                "full_address" : { "type" : "string"},
-                "total_checkins" : { "type" : "integer"}  
+                "name" : { "type" : "string", "index" : "analyzed"},
+                "full_address" : { "type" : "string", "index" : "analyzed"},
+                "total_checkins" : { "type" : "integer", "index" : "analyzed"}
             }
           }
       })
@@ -55,7 +62,6 @@ const init = () => {
        let hits = data.hits.hits;
         hits.forEach(business => {
           let tmp = {};
-          tmp.id = business._id;
           tmp.name = business._source.name;
           tmp.full_address = business._source.full_address;
           tmp.total_checkins = business._source.checkin_info ? countCheckin(business._source.checkin_info) : 0
@@ -77,6 +83,7 @@ const init = () => {
   .catch(err => {
     console.log(err);
   })
+  //*/
 
   
   console.log("Getting existing data from business");

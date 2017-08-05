@@ -17,21 +17,22 @@ module.exports = {
 
   getBusinesses: function (req, res, next) {
     console.log(req.query);
-    let query = req.query.q && req.query.length ? req.query.q : '*';
+    let queryString = req.query.q && req.query.q.length ? req.query.q : '*';
     let size = req.query.size ? req.query.size : 10;
     let page = req.query.page ? req.query.page : 0;
     if(size < 0 || page < 0){
       res.status(400).json({"error": "Invalid request"})
     }
+    console.log(queryString);
     client.search({
       index: 'checkins',
       type: 'businesses',
-      q: `${query}`,
+      //q: queryString,
+      body: {
+          sort:  {"total_checkins" : {"order":"desc"}}
+      },
       from: page,
       size: size,
-      // sort: [
-      //   {"total_checkins" : "desc"}
-      // ]
     })
     .then(data => {
       res.json(data)
