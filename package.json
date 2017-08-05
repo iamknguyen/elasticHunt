@@ -15,9 +15,11 @@
     "request-promise": "^4.2.1"
   },
   "scripts": {
-    "start": "concurrently  \" nodemon server/server.js \"   \"cd client && npm start  \" ",
+    "start": "node server/server.js",
+    "prod": "concurrently  \" nodemon server/server.js \"   \"cd client && npm start  \" ",
     "server": "nodemon server/server.js",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
   },
   "description": "Elastic Search in Node.js",
   "main": "server/server.js",
