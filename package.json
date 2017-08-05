@@ -19,6 +19,7 @@
     "prod": "concurrently  \" nodemon server/server.js \"   \"cd client && npm start  \" ",
     "server": "nodemon server/server.js",
     "build": "cd client && npm run build",
+    "installAll": "concurrently  \" npm i \"   \"cd client && npm i  \" ",
     "heroku-postbuild": "cd client && yarn --production=false && yarn run build"
   },
   "description": "Elastic Search in Node.js",

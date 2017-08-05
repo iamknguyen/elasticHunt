@@ -60,7 +60,7 @@ const init = () => {
   .then(data => {
    // console.log(data);
     if(data && !data.error_message){
-       let hits = data.hits.hits;
+       var hits = data.hits.hits;
        console.log(hits.length)
         hits.forEach(business => {
           let tmp = {};
