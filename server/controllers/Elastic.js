@@ -6,7 +6,10 @@ module.exports = {
     client.search({
       index: 'checkins',
       type: 'businesses',
-      q: "*"
+      q: "*",
+      body: {
+          sort:  {"total_checkins" : {"order":"desc"}}
+      },
     }).then(function (resp) {
         var hits = resp.hits.hits;
         res.json(hits)
@@ -48,11 +51,20 @@ module.exports = {
       size: size,
     })
     .then(data => {
-      
-      res.json({
+      let formatted = {
         total: data.hits.hits.length,
-        businesses: data.hits.hits
+        businesses: []
+      }
+      let hits = data.hits.hits;
+      hits.forEach(hit => {
+        formatted.businesses.push({
+          id: hit._source.id,
+          name: hit._source.name,
+          full_address: hit._source.full_address,
+          total_checkins: hit._source.total_checkins
+        })
       })
+      res.json(formatted)
     })
     .catch(err => {
       res.json(err)

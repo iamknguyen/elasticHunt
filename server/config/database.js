@@ -80,7 +80,7 @@ const init = () => {
   })
   .then(data => {
     if(data){
-        console.log("inserted documents", data.took);
+        console.log("inserted documents", data.items.length);
     }
   })
   .catch(err => {
@@ -97,8 +97,9 @@ const init = () => {
 const countCheckin = (checkInObj) => {
   let total = 0;
   for(let key in checkInObj){
-    total += checkInObj[key]
+    total = total + checkInObj[key]
   }
+  // console.log(total);
   return total;
 }
 
