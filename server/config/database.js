@@ -23,7 +23,7 @@ const init = () => {
   // .then(data => {
   //   console.log(data);
   // })
-  ///*
+  
   myClient.indices.exists({
     index: 'checkins'
   })
@@ -35,6 +35,7 @@ const init = () => {
           type: 'businesses',
           body: {
             "properties" : {
+                "id" : { "type" : "string", "index" : "analyzed"},                
                 "name" : { "type" : "string", "index" : "analyzed"},
                 "full_address" : { "type" : "string", "index" : "analyzed"},
                 "total_checkins" : { "type" : "integer", "index" : "analyzed"}
@@ -51,17 +52,19 @@ const init = () => {
        return myClient.search({
           index: 'khoa_2017_08_05_index',
           type: 'business',
-          q: "*"
+          q: "*",
+          size: "5000"
         })
     }
   })
   .then(data => {
    // console.log(data);
     if(data && !data.error_message){
-      console.log('test');
        let hits = data.hits.hits;
+       console.log(hits.length)
         hits.forEach(business => {
           let tmp = {};
+          tmp.id = business._id;
           tmp.name = business._source.name;
           tmp.full_address = business._source.full_address;
           tmp.total_checkins = business._source.checkin_info ? countCheckin(business._source.checkin_info) : 0

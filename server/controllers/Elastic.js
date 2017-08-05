@@ -15,6 +15,19 @@ module.exports = {
     });
   },
 
+  getOrigData: function (req, res, next) {
+    client.search({
+      index: 'khoa_2017_08_05_index',
+      type: 'business',
+      size: '1000'
+    }).then(function (resp) {
+        var hits = resp.hits.hits;
+        res.json(hits)
+    }, function (err) {
+        console.trace(err.message);
+    });
+  },
+
   getBusinesses: function (req, res, next) {
     console.log(req.query);
     let queryString = req.query.q && req.query.q.length ? req.query.q : '*';
@@ -35,7 +48,11 @@ module.exports = {
       size: size,
     })
     .then(data => {
-      res.json(data)
+      
+      res.json({
+        total: data.hits.hits.length,
+        businesses: data.hits.hits
+      })
     })
     .catch(err => {
       res.json(err)

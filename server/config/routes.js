@@ -5,12 +5,15 @@ const elasticController = require('../controllers/Elastic.js');
 
 module.exports = (app, express)=>{
 
-  app.get('/businesses', (req, res, next) => {
+  app.get('/business', (req, res, next) => {
     elasticController.getBusinesses(req, res, next);
   });
 
   app.get('/api/search', (req, res, next) => {
     elasticController.query(req, res, next)
+  });
+  app.get('/api/search/all', (req, res, next) => {
+    elasticController.getOrigData(req, res, next)
   });
 
   app.get('/api/users', (req, res, next) => {
