@@ -43,8 +43,13 @@ module.exports = {
     client.search({
       index: 'checkins',
       type: 'businesses',
-      q: queryString,
+      // q: queryString,
       body: {
+          query: {
+            match: {
+              name: queryString
+            }
+          },
           sort:  {"total_checkins" : {"order":"desc"}}
       },
       from: page,
@@ -52,7 +57,7 @@ module.exports = {
     })
     .then(data => {
       let formatted = {
-        total: data.hits.hits.length,
+        total: data.hits.total,
         businesses: []
       }
       let hits = data.hits.hits;
