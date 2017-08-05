@@ -27,7 +27,7 @@ module.exports = {
     client.search({
       index: 'checkins',
       type: 'businesses',
-      //q: queryString,
+      q: queryString,
       body: {
           sort:  {"total_checkins" : {"order":"desc"}}
       },
