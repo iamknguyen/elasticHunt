@@ -53,7 +53,7 @@ const init = () => {
           index: 'khoa_2017_08_05_index',
           type: 'business',
           q: "*",
-          size: "5000"
+          size: "10000"
         })
     }
   })
