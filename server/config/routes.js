@@ -5,7 +5,7 @@ const elasticController = require('../controllers/Elastic.js');
 
 module.exports = (app, express)=>{
 
-  app.get('/business', (req, res, next) => {
+  app.get('/businesses', (req, res, next) => {
     elasticController.getBusinesses(req, res, next);
   });
 
