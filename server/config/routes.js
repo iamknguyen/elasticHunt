@@ -9,26 +9,8 @@ module.exports = (app, express)=>{
     elasticController.getBusinesses(req, res, next);
   });
 
-  // app.get('/api/search', (req, res, next) => {
-  //   elasticController.query(req, res, next)
-  // });
-  // app.get('/api/search/all', (req, res, next) => {
-  //   elasticController.getOrigData(req, res, next)
-  // });
-
-  // app.get('/api/users', (req, res, next) => {
-  //   res.json([{
-  //     id: 1,
-  //     username: "khoa"
-  //   }, {
-  //     id: 2,
-  //     username: "nguyen"
-  //   }]);
-  // });
-
   app.get('*', (req, res, next) => {
     res.status(404).json({"error": "Not found"});
-    //res.sendfile('./client/build/index.html');
   });
 
 }

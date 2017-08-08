@@ -19,12 +19,6 @@ const init = () => {
   console.log("Elastic Search is connected!");
   console.log("Creating index...");
   const store = [];
-  // myClient.indices.create({
-  //   index: 'checkins'
-  // })
-  // .then(data => {
-  //   console.log(data);
-  // })
   
   myClient.indices.exists({
     index: 'checkins'
@@ -60,7 +54,6 @@ const init = () => {
     }
   })
   .then(data => {
-   // console.log(data);
     if(data && !data.error_message){
        let hits = data.hits.hits;
        console.log(hits.length)
@@ -74,7 +67,6 @@ const init = () => {
           store.push(def)
           store.push(tmp);
         });
-        //console.log(store)
         return myClient.bulk({
           body: store
         })
@@ -92,7 +84,6 @@ const init = () => {
 
   
   console.log("Getting existing data from business");
-  //calculateCheckin();
 }
 
 
@@ -101,7 +92,6 @@ const countCheckin = (checkInObj) => {
   for(let key in checkInObj){
     total = total + checkInObj[key]
   }
-  // console.log(total);
   return total;
 }
 
